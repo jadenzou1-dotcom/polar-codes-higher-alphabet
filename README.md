@@ -4,7 +4,8 @@ Simulating polar codes over q-ary symmetric channels to test whether channel
 polarization persists at higher alphabet sizes.
 
 **Author:** Jaden Zou · Cornell MEng ECE · Advisor: Prof. Aaron Wagner
-[LinkedIn](https://www.linkedin.com/in/jadenzou55/)
+
+Here is my Linkedin: [LinkedIn](https://www.linkedin.com/in/jadenzou55/)
 
 ## Summary
 
