@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -79,4 +81,17 @@ if __name__ == "__main__":
         f"Construction via Monte Carlo ({CONSTRUCTION_TRIALS} trials)"
     )
     plt.grid(True)
+
+    results_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
+    os.makedirs(results_dir, exist_ok=True)
+    tag = f"N{N}_q{q}_p{p}_trials{TRIALS}"
+    plt.savefig(os.path.join(results_dir, f"bler_vs_K_{tag}.png"), dpi=150)
+    np.savetxt(
+        os.path.join(results_dir, f"bler_vs_K_{tag}.csv"),
+        np.column_stack([K_vals, K_vals / N, err]),
+        delimiter=",",
+        header="K,rate,block_error_rate",
+        comments="",
+        fmt=["%d", "%.4f", "%.4f"],
+    )
     plt.show()
