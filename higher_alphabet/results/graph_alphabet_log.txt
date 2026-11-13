@@ -1,0 +1,258 @@
+/Users/jadenzou/Desktop/github repos/polar-codes-higher-alphabet/higher_alphabet/graph_alphabet.py:97: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+K=  1, rate=0.004, error=0.000000
+K=  2, rate=0.008, error=0.005000
+K=  3, rate=0.012, error=0.000000
+K=  4, rate=0.016, error=0.000000
+K=  5, rate=0.020, error=0.000000
+K=  6, rate=0.023, error=0.000000
+K=  7, rate=0.027, error=0.000000
+K=  8, rate=0.031, error=0.005000
+K=  9, rate=0.035, error=0.000000
+K= 10, rate=0.039, error=0.000000
+K= 11, rate=0.043, error=0.000000
+K= 12, rate=0.047, error=0.000000
+K= 13, rate=0.051, error=0.000000
+K= 14, rate=0.055, error=0.000000
+K= 15, rate=0.059, error=0.005000
+K= 16, rate=0.062, error=0.000000
+K= 17, rate=0.066, error=0.000000
+K= 18, rate=0.070, error=0.010000
+K= 19, rate=0.074, error=0.005000
+K= 20, rate=0.078, error=0.000000
+K= 21, rate=0.082, error=0.010000
+K= 22, rate=0.086, error=0.000000
+K= 23, rate=0.090, error=0.000000
+K= 24, rate=0.094, error=0.005000
+K= 25, rate=0.098, error=0.000000
+K= 26, rate=0.102, error=0.000000
+K= 27, rate=0.105, error=0.005000
+K= 28, rate=0.109, error=0.005000
+K= 29, rate=0.113, error=0.000000
+K= 30, rate=0.117, error=0.000000
+K= 31, rate=0.121, error=0.000000
+K= 32, rate=0.125, error=0.015000
+K= 33, rate=0.129, error=0.000000
+K= 34, rate=0.133, error=0.015000
+K= 35, rate=0.137, error=0.000000
+K= 36, rate=0.141, error=0.000000
+K= 37, rate=0.145, error=0.005000
+K= 38, rate=0.148, error=0.005000
+K= 39, rate=0.152, error=0.010000
+K= 40, rate=0.156, error=0.015000
+K= 41, rate=0.160, error=0.000000
+K= 42, rate=0.164, error=0.020000
+K= 43, rate=0.168, error=0.005000
+K= 44, rate=0.172, error=0.020000
+K= 45, rate=0.176, error=0.010000
+K= 46, rate=0.180, error=0.010000
+K= 47, rate=0.184, error=0.000000
+K= 48, rate=0.188, error=0.015000
+K= 49, rate=0.191, error=0.020000
+K= 50, rate=0.195, error=0.010000
+K= 51, rate=0.199, error=0.010000
+K= 52, rate=0.203, error=0.005000
+K= 53, rate=0.207, error=0.005000
+K= 54, rate=0.211, error=0.010000
+K= 55, rate=0.215, error=0.020000
+K= 56, rate=0.219, error=0.005000
+K= 57, rate=0.223, error=0.015000
+K= 58, rate=0.227, error=0.005000
+K= 59, rate=0.230, error=0.000000
+K= 60, rate=0.234, error=0.015000
+K= 61, rate=0.238, error=0.000000
+K= 62, rate=0.242, error=0.010000
+K= 63, rate=0.246, error=0.015000
+K= 64, rate=0.250, error=0.000000
+K= 65, rate=0.254, error=0.010000
+K= 66, rate=0.258, error=0.015000
+K= 67, rate=0.262, error=0.010000
+K= 68, rate=0.266, error=0.010000
+K= 69, rate=0.270, error=0.005000
+K= 70, rate=0.273, error=0.015000
+K= 71, rate=0.277, error=0.010000
+K= 72, rate=0.281, error=0.010000
+K= 73, rate=0.285, error=0.000000
+K= 74, rate=0.289, error=0.000000
+K= 75, rate=0.293, error=0.000000
+K= 76, rate=0.297, error=0.005000
+K= 77, rate=0.301, error=0.020000
+K= 78, rate=0.305, error=0.010000
+K= 79, rate=0.309, error=0.010000
+K= 80, rate=0.312, error=0.015000
+K= 81, rate=0.316, error=0.000000
+K= 82, rate=0.320, error=0.025000
+K= 83, rate=0.324, error=0.005000
+K= 84, rate=0.328, error=0.005000
+K= 85, rate=0.332, error=0.005000
+K= 86, rate=0.336, error=0.005000
+K= 87, rate=0.340, error=0.010000
+K= 88, rate=0.344, error=0.005000
+K= 89, rate=0.348, error=0.000000
+K= 90, rate=0.352, error=0.010000
+K= 91, rate=0.355, error=0.005000
+K= 92, rate=0.359, error=0.015000
+K= 93, rate=0.363, error=0.015000
+K= 94, rate=0.367, error=0.005000
+K= 95, rate=0.371, error=0.015000
+K= 96, rate=0.375, error=0.010000
+K= 97, rate=0.379, error=0.000000
+K= 98, rate=0.383, error=0.000000
+K= 99, rate=0.387, error=0.000000
+K=100, rate=0.391, error=0.020000
+K=101, rate=0.395, error=0.000000
+K=102, rate=0.398, error=0.010000
+K=103, rate=0.402, error=0.000000
+K=104, rate=0.406, error=0.005000
+K=105, rate=0.410, error=0.005000
+K=106, rate=0.414, error=0.005000
+K=107, rate=0.418, error=0.010000
+K=108, rate=0.422, error=0.005000
+K=109, rate=0.426, error=0.010000
+K=110, rate=0.430, error=0.025000
+K=111, rate=0.434, error=0.030000
+K=112, rate=0.438, error=0.000000
+K=113, rate=0.441, error=0.010000
+K=114, rate=0.445, error=0.015000
+K=115, rate=0.449, error=0.020000
+K=116, rate=0.453, error=0.010000
+K=117, rate=0.457, error=0.010000
+K=118, rate=0.461, error=0.025000
+K=119, rate=0.465, error=0.015000
+K=120, rate=0.469, error=0.020000
+K=121, rate=0.473, error=0.010000
+K=122, rate=0.477, error=0.020000
+K=123, rate=0.480, error=0.025000
+K=124, rate=0.484, error=0.005000
+K=125, rate=0.488, error=0.020000
+K=126, rate=0.492, error=0.020000
+K=127, rate=0.496, error=0.045000
+K=128, rate=0.500, error=0.065000
+K=129, rate=0.504, error=0.070000
+K=130, rate=0.508, error=0.070000
+K=131, rate=0.512, error=0.070000
+K=132, rate=0.516, error=0.060000
+K=133, rate=0.520, error=0.110000
+K=134, rate=0.523, error=0.090000
+K=135, rate=0.527, error=0.055000
+K=136, rate=0.531, error=0.075000
+K=137, rate=0.535, error=0.075000
+K=138, rate=0.539, error=0.105000
+K=139, rate=0.543, error=0.135000
+K=140, rate=0.547, error=0.135000
+K=141, rate=0.551, error=0.110000
+K=142, rate=0.555, error=0.165000
+K=143, rate=0.559, error=0.150000
+K=144, rate=0.562, error=0.150000
+K=145, rate=0.566, error=0.145000
+K=146, rate=0.570, error=0.200000
+K=147, rate=0.574, error=0.220000
+K=148, rate=0.578, error=0.190000
+K=149, rate=0.582, error=0.245000
+K=150, rate=0.586, error=0.310000
+K=151, rate=0.590, error=0.285000
+K=152, rate=0.594, error=0.305000
+K=153, rate=0.598, error=0.355000
+K=154, rate=0.602, error=0.375000
+K=155, rate=0.605, error=0.385000
+K=156, rate=0.609, error=0.420000
+K=157, rate=0.613, error=0.510000
+K=158, rate=0.617, error=0.455000
+K=159, rate=0.621, error=0.490000
+K=160, rate=0.625, error=0.480000
+K=161, rate=0.629, error=0.520000
+K=162, rate=0.633, error=0.545000
+K=163, rate=0.637, error=0.500000
+K=164, rate=0.641, error=0.555000
+K=165, rate=0.645, error=0.650000
+K=166, rate=0.648, error=0.680000
+K=167, rate=0.652, error=0.675000
+K=168, rate=0.656, error=0.710000
+K=169, rate=0.660, error=0.680000
+K=170, rate=0.664, error=0.725000
+K=171, rate=0.668, error=0.745000
+K=172, rate=0.672, error=0.775000
+K=173, rate=0.676, error=0.785000
+K=174, rate=0.680, error=0.820000
+K=175, rate=0.684, error=0.785000
+K=176, rate=0.688, error=0.835000
+K=177, rate=0.691, error=0.880000
+K=178, rate=0.695, error=0.850000
+K=179, rate=0.699, error=0.905000
+K=180, rate=0.703, error=0.860000
+K=181, rate=0.707, error=0.860000
+K=182, rate=0.711, error=0.925000
+K=183, rate=0.715, error=0.945000
+K=184, rate=0.719, error=0.920000
+K=185, rate=0.723, error=0.940000
+K=186, rate=0.727, error=0.960000
+K=187, rate=0.730, error=0.920000
+K=188, rate=0.734, error=0.970000
+K=189, rate=0.738, error=0.970000
+K=190, rate=0.742, error=0.990000
+K=191, rate=0.746, error=0.970000
+K=192, rate=0.750, error=0.990000
+K=193, rate=0.754, error=0.990000
+K=194, rate=0.758, error=0.990000
+K=195, rate=0.762, error=0.990000
+K=196, rate=0.766, error=0.990000
+K=197, rate=0.770, error=0.995000
+K=198, rate=0.773, error=0.995000
+K=199, rate=0.777, error=0.990000
+K=200, rate=0.781, error=1.000000
+K=201, rate=0.785, error=0.990000
+K=202, rate=0.789, error=1.000000
+K=203, rate=0.793, error=0.995000
+K=204, rate=0.797, error=1.000000
+K=205, rate=0.801, error=1.000000
+K=206, rate=0.805, error=1.000000
+K=207, rate=0.809, error=1.000000
+K=208, rate=0.812, error=1.000000
+K=209, rate=0.816, error=1.000000
+K=210, rate=0.820, error=1.000000
+K=211, rate=0.824, error=1.000000
+K=212, rate=0.828, error=0.995000
+K=213, rate=0.832, error=1.000000
+K=214, rate=0.836, error=1.000000
+K=215, rate=0.840, error=1.000000
+K=216, rate=0.844, error=1.000000
+K=217, rate=0.848, error=1.000000
+K=218, rate=0.852, error=1.000000
+K=219, rate=0.855, error=1.000000
+K=220, rate=0.859, error=1.000000
+K=221, rate=0.863, error=1.000000
+K=222, rate=0.867, error=1.000000
+K=223, rate=0.871, error=1.000000
+K=224, rate=0.875, error=1.000000
+K=225, rate=0.879, error=1.000000
+K=226, rate=0.883, error=1.000000
+K=227, rate=0.887, error=1.000000
+K=228, rate=0.891, error=1.000000
+K=229, rate=0.895, error=1.000000
+K=230, rate=0.898, error=1.000000
+K=231, rate=0.902, error=1.000000
+K=232, rate=0.906, error=1.000000
+K=233, rate=0.910, error=1.000000
+K=234, rate=0.914, error=1.000000
+K=235, rate=0.918, error=1.000000
+K=236, rate=0.922, error=1.000000
+K=237, rate=0.926, error=1.000000
+K=238, rate=0.930, error=1.000000
+K=239, rate=0.934, error=1.000000
+K=240, rate=0.938, error=1.000000
+K=241, rate=0.941, error=1.000000
+K=242, rate=0.945, error=1.000000
+K=243, rate=0.949, error=1.000000
+K=244, rate=0.953, error=1.000000
+K=245, rate=0.957, error=1.000000
+K=246, rate=0.961, error=1.000000
+K=247, rate=0.965, error=1.000000
+K=248, rate=0.969, error=1.000000
+K=249, rate=0.973, error=1.000000
+K=250, rate=0.977, error=1.000000
+K=251, rate=0.980, error=1.000000
+K=252, rate=0.984, error=1.000000
+K=253, rate=0.988, error=1.000000
+K=254, rate=0.992, error=1.000000
+K=255, rate=0.996, error=1.000000
+K=256, rate=1.000, error=1.000000

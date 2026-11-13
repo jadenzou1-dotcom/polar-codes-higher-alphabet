@@ -3,9 +3,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from concurrent.futures import ProcessPoolExecutor
 
-CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "capacity_cache")
+HERE = os.path.dirname(os.path.abspath(__file__))
+CACHE_DIR = os.path.join(HERE, "capacity_cache")
+RESULTS_DIR = os.path.join(HERE, "results")
 FORCE_RECOMPUTE = False
+SEED = 0               # Base seed so reruns reproduce the cached results
 
 from alphabet_bsc_fast import (
     polar_transform,
@@ -106,46 +110,100 @@ def estimate_subchannel_prob_vector(y, true_u, symbol_index, p, q):
     return recurse(obs_probs, true_u, symbol_index)
 
 
+# ---------------------------------------------------------------------------
+# Batched versions of the above. Same math as estimate_subchannel_prob_vector,
+# qary_f, qary_g and polar_transform, but run on all trials at once
+# (arrays have a leading trial axis) so numpy does the loops instead of Python.
+# ---------------------------------------------------------------------------
+
+def normalize_probs_batch(v):
+    s = np.sum(v, axis=-1, keepdims=True)
+    q = v.shape[-1]
+    return np.where(s == 0, 1.0 / q, v / np.where(s == 0, 1.0, s))
+
+
+def polar_transform_batch(u, q):
+    n = u.shape[-1]
+    if n == 1:
+        return u
+
+    x = np.zeros_like(u)
+    x[..., :n // 2] = polar_transform_batch((u[..., ::2] + u[..., 1::2]) % q, q)
+    x[..., n // 2:] = polar_transform_batch(u[..., 1::2], q)
+    return x
+
+
+def qary_f_batch(left, right, q):
+    # out[a] = sum_b left[(a+b) % q] * right[b]
+    out = np.zeros_like(left)
+    for b in range(q):
+        out += np.roll(left, -b, axis=-1) * right[..., b:b + 1]
+    return normalize_probs_batch(out / q)
+
+
+def qary_g_batch(left, right, upper_symbol, q):
+    # out[b] = left[(upper_symbol + b) % q] * right[b]
+    idx = (upper_symbol[..., None] + np.arange(q)) % q
+    return normalize_probs_batch(np.take_along_axis(left, idx, axis=-1) * right)
+
+
+def estimate_subchannel_prob_vectors_batch(y, true_u, symbol_index, p, q):
+    trials, n = y.shape
+    obs = np.full((trials, n, q), p / (q - 1), dtype=np.float64)
+    np.put_along_axis(obs, y[..., None], 1 - p, axis=-1)
+    obs = normalize_probs_batch(obs)
+
+    u_node = true_u
+    local_index = symbol_index
+
+    while obs.shape[1] > 1:
+        half = obs.shape[1] // 2
+        left, right = obs[:, 0::2], obs[:, 1::2]
+
+        if local_index < half:
+            obs = qary_f_batch(left, right, q)
+            u_node = u_node[:, :half]
+        else:
+            true_upper_x = polar_transform_batch(u_node[:, :half], q)
+            obs = qary_g_batch(left, right, true_upper_x, q)
+            u_node = u_node[:, half:]
+            local_index -= half
+
+    return obs[:, 0]
+
+
+def subchannel_capacity(args):
+    # One subchannel's normalized capacity; run in a worker process.
+    N, p, q, trials, i, seed = args
+    rng = np.random.default_rng(seed)
+
+    u = rng.integers(0, q, size=(trials, N), dtype=np.int64)
+    x = polar_transform_batch(u, q)
+
+    flip = rng.random((trials, N)) < p
+    e = rng.integers(1, q, size=(trials, N))
+    y = np.where(flip, (x + e) % q, x)
+
+    posterior = estimate_subchannel_prob_vectors_batch(y, u, i, p, q)
+    entropy = -np.sum(posterior * np.log2(np.maximum(posterior, 1e-300)), axis=-1)
+
+    # H(U_i) = log2(q), assuming uniform input
+    mutual_information = np.log2(q) - np.mean(entropy)
+
+    # Normalize to [0, 1]
+    return mutual_information / np.log2(q)
+
+
 def estimate_normalized_capacities(N, p, q, trials):
-    capacities = np.zeros(N, dtype=np.float64)
+    seeds = np.random.SeedSequence([SEED, q]).spawn(N)
+    jobs = [(N, p, q, trials, i, seeds[i]) for i in range(N)]
 
-    for i in range(N):
-        conditional_entropy_sum = 0.0
+    with ProcessPoolExecutor() as pool:
+        capacities = np.array(list(pool.map(subchannel_capacity, jobs, chunksize=4)))
 
-        for _ in range(trials):
-            u = np.random.randint(0, q, size=N, dtype=np.int64)
-
-            x = polar_transform(u, q)
-            y = qary_channel(x, p, q)
-
-            posterior = estimate_subchannel_prob_vector(
-                y=y,
-                true_u=u,
-                symbol_index=i,
-                p=p,
-                q=q,
-            )
-
-            entropy = -np.sum(
-                posterior * np.log2(np.maximum(posterior, 1e-300))
-            )
-
-            conditional_entropy_sum += entropy
-
-        conditional_entropy = conditional_entropy_sum / trials
-
-        # H(U_i) = log2(q), assuming uniform input
-        mutual_information = np.log2(q) - conditional_entropy
-
-        # Normalize to [0, 1]
-        capacities[i] = mutual_information / np.log2(q)
-
-        print(
-            f"q={q}, subchannel={i:3d}, "
-            f"normalized capacity={capacities[i]:.4f}"
-        )
-
+    print(f"q={q}: computed {N} subchannel capacities")
     return capacities
+
 
 def theoretical_normalized_capacity(q, p):
     if p == 0:
@@ -155,11 +213,6 @@ def theoretical_normalized_capacity(q, p):
 
     C = np.log2(q) - H2 - p * np.log2(q - 1)
 
-    return C / np.log2(q)
-
-def theoretical_normalized_capacity(q, p):
-    H2 = -p * np.log2(p) - (1 - p) * np.log2(1 - p)
-    C = np.log2(q) - H2 - p * np.log2(q - 1)
     return C / np.log2(q)
 
 
@@ -189,7 +242,9 @@ def plot_capacity_trends():
     plt.figure(figsize=(9, 6))
     area_results = []
 
-    for q in Q_VALUES:
+    colors = plt.cm.viridis(np.linspace(0, 0.92, len(Q_VALUES)))
+
+    for q, color in zip(Q_VALUES, colors):
         os.makedirs(CACHE_DIR, exist_ok=True)
 
         cache_file = os.path.join(
@@ -224,6 +279,7 @@ def plot_capacity_trends():
             x_vals,
             trend,
             linewidth=2,
+            color=color,
             label=f"q={q}",
         )
 
@@ -233,6 +289,7 @@ def plot_capacity_trends():
             y_vals,
             s=8,
             alpha=0.25,
+            color=color,
         )
         C_norm = theoretical_normalized_capacity(q, p)
         boundary_k = N * (1 - C_norm)
@@ -260,27 +317,13 @@ def plot_capacity_trends():
             normalized_area
         ])
 
+        # Since capacities are sorted low-to-high,
+        # left side is frozen/bad and right side is usable/good.
         print(
             f"q={q}: C_norm={C_norm:.4f}, "
             f"boundary={boundary_k:.2f}, "
             f"area={total_area:.2f}, "
             f"area/N={normalized_area:.4f}"
-        )
-        # Since capacities are sorted low-to-high,
-        # left side is frozen/bad and right side is usable/good.
-        boundary_k = N * (1 - C_norm)
-
-        plt.axvline(
-            boundary_k,
-            color=line.get_color(),
-            linestyle="--",
-            linewidth=1.5,
-            alpha=0.5,
-        )
-
-        print(
-            f"q={q}: theoretical normalized capacity={C_norm:.4f}, "
-            f"boundary k={boundary_k:.1f}"
         )
 
     plt.xlabel(x_label)
@@ -308,7 +351,50 @@ def plot_capacity_trends():
             f"{total_area:>12.2f} "
             f"{normalized_area:>12.4f}"
         )
+
+    os.makedirs(RESULTS_DIR, exist_ok=True)
+    tag = f"N{N}_p{p}_trials{TRIALS}"
+    plt.savefig(os.path.join(RESULTS_DIR, f"normalized_capacity_{tag}.png"), dpi=150)
+    save_area_results(area_results, tag)
+    plot_area_vs_q(area_results, tag)
     plt.show()
+
+
+def save_area_results(area_results, tag):
+    header = ["q", "C_norm", "boundary_k", "area", "area_over_N"]
+    np.savetxt(
+        os.path.join(RESULTS_DIR, f"area_summary_{tag}.csv"),
+        np.array(area_results),
+        delimiter=",",
+        header=",".join(header),
+        comments="",
+        fmt=["%d", "%.4f", "%.2f", "%.2f", "%.4f"],
+    )
+
+    with open(os.path.join(RESULTS_DIR, f"area_summary_{tag}.md"), "w") as fh:
+        fh.write(f"# Polarization speed (area to ideal step), N={N}, p={p}, trials={TRIALS}\n\n")
+        fh.write("| q | normalized capacity | ideal step at k | area | area / N |\n")
+        fh.write("|---:|---:|---:|---:|---:|\n")
+        for q, C_norm, boundary_k, total_area, normalized_area in area_results:
+            fh.write(
+                f"| {q:d} | {C_norm:.4f} | {boundary_k:.2f} | "
+                f"{total_area:.2f} | {normalized_area:.4f} |\n"
+            )
+
+
+def plot_area_vs_q(area_results, tag):
+    rows = np.array(area_results)
+    fig = plt.figure(figsize=(7, 4.5))
+    plt.plot(rows[:, 0], rows[:, 4], marker="o")
+    plt.xscale("log")
+    plt.xticks(rows[:, 0], [f"{int(q)}" for q in rows[:, 0]])
+    plt.minorticks_off()
+    plt.xlabel("Alphabet size q (log scale)")
+    plt.ylabel("Area to ideal step / N  (lower = faster polarization)")
+    plt.title(f"Speed of polarization vs alphabet size\nN={N}, p={p}, trials={TRIALS}")
+    plt.grid(True)
+    plt.tight_layout()
+    fig.savefig(os.path.join(RESULTS_DIR, f"area_vs_q_{tag}.png"), dpi=150)
 
 
 if __name__ == "__main__":
