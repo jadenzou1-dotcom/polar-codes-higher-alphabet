@@ -1,0 +1,99 @@
+/Users/jadenzou/Desktop/github repos/polar-codes-higher-alphabet/higher_alphabet/plot_normalized_capacity.py:360: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+Loading saved capacities for q=2
+
+q=2
+Average normalized capacity = 0.5313
+Sum of normalized capacities = 272.0042
+q=2: C_norm=0.5310, boundary=240.13, area=33.81, area/N=0.0660
+Loading saved capacities for q=3
+
+q=3
+Average normalized capacity = 0.6412
+Sum of normalized capacities = 328.2706
+q=3: C_norm=0.6410, boundary=183.81, area=30.19, area/N=0.0590
+Loading saved capacities for q=4
+
+q=4
+Average normalized capacity = 0.6865
+Sum of normalized capacities = 351.4825
+q=4: C_norm=0.6863, boundary=160.64, area=27.62, area/N=0.0539
+Loading saved capacities for q=5
+
+q=5
+Average normalized capacity = 0.7122
+Sum of normalized capacities = 364.6426
+q=5: C_norm=0.7119, boundary=147.52, area=26.09, area/N=0.0510
+Loading saved capacities for q=6
+
+q=6
+Average normalized capacity = 0.7288
+Sum of normalized capacities = 373.1486
+q=6: C_norm=0.7287, boundary=138.88, area=25.12, area/N=0.0491
+Loading saved capacities for q=7
+
+q=7
+Average normalized capacity = 0.7410
+Sum of normalized capacities = 379.3685
+q=7: C_norm=0.7409, boundary=132.68, area=24.03, area/N=0.0469
+Loading saved capacities for q=8
+
+q=8
+Average normalized capacity = 0.7502
+Sum of normalized capacities = 384.1105
+q=8: C_norm=0.7501, boundary=127.95, area=23.37, area/N=0.0457
+Loading saved capacities for q=9
+
+q=9
+Average normalized capacity = 0.7575
+Sum of normalized capacities = 387.8294
+q=9: C_norm=0.7574, boundary=124.21, area=22.90, area/N=0.0447
+Loading saved capacities for q=10
+
+q=10
+Average normalized capacity = 0.7633
+Sum of normalized capacities = 390.7933
+q=10: C_norm=0.7634, boundary=121.14, area=22.28, area/N=0.0435
+Loading saved capacities for q=15
+
+q=15
+Average normalized capacity = 0.7829
+Sum of normalized capacities = 400.8217
+q=15: C_norm=0.7825, boundary=111.36, area=20.48, area/N=0.0400
+Loading saved capacities for q=20
+
+q=20
+Average normalized capacity = 0.7931
+Sum of normalized capacities = 406.0795
+q=20: C_norm=0.7932, boundary=105.88, area=19.82, area/N=0.0387
+Loading saved capacities for q=25
+
+q=25
+Average normalized capacity = 0.8002
+Sum of normalized capacities = 409.6792
+q=25: C_norm=0.8003, boundary=102.26, area=19.22, area/N=0.0375
+Loading saved capacities for q=50
+
+q=50
+Average normalized capacity = 0.8173
+Sum of normalized capacities = 418.4681
+q=50: C_norm=0.8174, boundary=93.48, area=17.83, area/N=0.0348
+
+======================================================================
+AREA SUMMARY
+======================================================================
+   q     C_norm   boundary_k         area       area/N
+----------------------------------------------------------------------
+   2     0.5310       240.13        33.81       0.0660
+   3     0.6410       183.81        30.19       0.0590
+   4     0.6863       160.64        27.62       0.0539
+   5     0.7119       147.52        26.09       0.0510
+   6     0.7287       138.88        25.12       0.0491
+   7     0.7409       132.68        24.03       0.0469
+   8     0.7501       127.95        23.37       0.0457
+   9     0.7574       124.21        22.90       0.0447
+  10     0.7634       121.14        22.28       0.0435
+  15     0.7825       111.36        20.48       0.0400
+  20     0.7932       105.88        19.82       0.0387
+  25     0.8003       102.26        19.22       0.0375
+  50     0.8174        93.48        17.83       0.0348
